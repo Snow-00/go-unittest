@@ -21,7 +21,14 @@ package helper
 import (
 	"testing"
 	"fmt"
+  "github.com/stretchr/testify/assert"
 )
+
+func TestHelloWorldAssert(t *testing.T) {
+  result := HelloWorld("Eko")
+  assert.Equal(t, "Hello eko", result, "Result must be 'Hello eko'")
+  fmt.Println("TestHelloWorldAssert done")
+}
 
 func TestHelloWorld(t *testing.T) {
 	result := HelloWorld("eko") // kalo var hanya dipakai di file ini aj pake := blh
