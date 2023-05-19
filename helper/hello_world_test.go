@@ -14,6 +14,11 @@ t.FailNow = langsung brenti di FailNow, tp msh lanjut ke func testing slanjutnya
 recommend:
 t.Error(args) = sama kek Fail tp dikasi log error nya (args)
 t.Fatal(args) = sama kek FailNow tp ada log error (args)
+
+assert menggunakan Fail
+require menggunakan FailNow
+
+untuk mengskip unit test bs pake skip test (biasanya ketika di os tertentu)
 */
 
 package helper
@@ -22,7 +27,25 @@ import (
 	"testing"
 	"fmt"
   "github.com/stretchr/testify/assert"
+  "github.com/stretchr/testify/require"
+  "runtime"
 )
+
+func TestSkip(t *testing.T) {
+  if runtime.GOOS == "linux" {
+    //fmt.Println("TestSkip done")  --> just checking
+    t.Skip("can't run on linux")
+  }
+
+  result := HelloWorld("Eko")
+  require.Equal(t, "Hello eko", result, "Result must be 'Hello eko'")
+}
+
+func TestHelloWorldRequire(t *testing.T) {
+  result := HelloWorld("Eko")
+  require.Equal(t, "Hello eko", result, "Result must be 'Hello eko'")
+  fmt.Println("TestHelloWorldAssert w/ require done")
+}
 
 func TestHelloWorldAssert(t *testing.T) {
   result := HelloWorld("Eko")
