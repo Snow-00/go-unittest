@@ -33,7 +33,7 @@ go test -v -run /NamaSubTest => jalanin smua test dg NamaSubTest itu, yg ga ada 
 
 table test = konsep di mana nyediain data berupa,
 slice isi param dan ekspektasi dr unit test, lalu slice diiterasi pake sub test
-
+blh dideklarasi dl type struct / langsung
 */
 
 package helper
@@ -45,6 +45,32 @@ import (
   "github.com/stretchr/testify/require"
   "runtime"
 )
+
+func TestTableHelloWorld(t *testing.T) {
+  tests := []struct{
+    name string
+    request string
+    expected string
+  }{
+    {
+      name:     "eko",
+      request:  "eko",
+      expected: "Hello eko",
+    },
+    {
+      name:     "kurniawan",
+      request:  "kurniawan",
+      expected: "Hello kurniawan",
+    },
+  }
+
+  for _, test := range tests {
+    t.Run(test.name, func(t *testing.T) {
+      result := HelloWorld(test.request)
+      require.Equal(t, test.expected, result)
+    })
+  }
+}
 
 func TestSubTest(t *testing.T) {
   t.Run("will", func(t *testing.T) {
