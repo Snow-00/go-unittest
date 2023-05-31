@@ -11,7 +11,7 @@ type CategoryService struct {
 }
 
 func (service CategoryService) Get(id string) (*entity.Category, error) {
-  category := service.service.Repository.FindById(id)
+  category := service.Repository.FindById(id)
   if category == nil {
     return category, errors.New("Category not found")
   } else {
