@@ -1,4 +1,5 @@
 /**
+UNIT TEST
 nama file utk unittest harus diakhiri _test
 nama func utk unit test hrs diawali Test
 func hrs ada parameter (t *testing.T) dan engga ada return value nya
@@ -34,6 +35,17 @@ go test -v -run /NamaSubTest => jalanin smua test dg NamaSubTest itu, yg ga ada 
 table test = konsep di mana nyediain data berupa,
 slice isi param dan ekspektasi dr unit test, lalu slice diiterasi pake sub test
 blh dideklarasi dl type struct / langsung
+
+BENCHMARK
+nama func harus diawali kata Benchmark
+nama file harus pake akhiran _test
+tidak boleh ada return value
+untuk menjalankan benchmark:
+go test -v -bench=. ==> menjalankan unit test + semua benchmark
+go test -v -run=func_tidak_ada -bench=. ==> jln unit test palsu + benchmark
+go test -v -run=func_tidak_ada -bench=func_benchmark
+go test -v -bench=. ./... ==> jln in smua bechmark + unit test di smua package 
+go test -v -run=func_tidak_ada -bench=. ./... ==> smua benchmark di smua package
 */
 
 package helper
@@ -45,6 +57,18 @@ import (
   "github.com/stretchr/testify/require"
   "runtime"
 )
+
+func BenchmarkHelloWOrld(b *testing.B) {
+  for i:= 0; i<b.N; i++ {
+    HelloWorld("eko")
+  }
+}
+
+func BenchmarkHelloWOrldTesting(b *testing.B) {
+  for i:= 0; i<b.N; i++ {
+    HelloWorld("testing")
+  }
+}
 
 func TestTableHelloWorld(t *testing.T) {
   tests := []struct{
