@@ -46,6 +46,9 @@ go test -v -run=func_tidak_ada -bench=. ==> jln unit test palsu + benchmark
 go test -v -run=func_tidak_ada -bench=func_benchmark
 go test -v -bench=. ./... ==> jln in smua bechmark + unit test di smua package 
 go test -v -run=func_tidak_ada -bench=. ./... ==> smua benchmark di smua package
+
+ada sub benchmark yg cara pake nya sama kek sub testing
+ada table benchmark yg cara pake nya sama kek table testing
 */
 
 package helper
@@ -57,6 +60,48 @@ import (
   "github.com/stretchr/testify/require"
   "runtime"
 )
+
+func BenchmarkTable(b *testing.B) {
+  benchmarks := []struct{
+    name string
+    request string
+  }{
+    {
+      name: "eko",
+      request: "eko",
+    },
+    {
+      name: "testing",
+      request: "testing",
+    },
+    {
+      name: "joko purwanto",
+      request: "joko purwanto",
+    },
+  }
+
+  for _, benchmark := range benchmarks {
+    b.Run(benchmark.name, func(b *testing.B) {
+      for i:=0; i<b.N; i++ {
+        HelloWorld(benchmark.request)
+      }
+    })
+  }
+}
+
+func BenchmarkSub(b *testing.B) {
+  b.Run("eko", func(b *testing.B) {
+    for i:=0; i<b.N; i++ {
+      HelloWorld("eko")
+    }
+  })
+
+  b.Run("testing", func(b *testing.B) {
+    for i:=0; i<b.N; i++ {
+      HelloWorld("testing")
+    }
+  })
+}
 
 func BenchmarkHelloWOrld(b *testing.B) {
   for i:= 0; i<b.N; i++ {
